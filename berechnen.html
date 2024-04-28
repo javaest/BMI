@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMI Berechnen</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">BMI Rechner</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="berechnung.html">BMI Berechnen</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Content here -->
+    <h1>BMI Berechnen</h1>
+    <form>
+      <div class="form-group">
+        <label for="gewicht">Gewicht (kg):</label>
+        <input type="number" class="form-control" id="gewicht" placeholder="Gewicht in Kilogramm">
+      </div>
+      <div class="form-group">
+        <label for="groesse">Größe (m):</label>
+        <input type="number" class="form-control" id="groesse" placeholder="Größe in Metern">
+      </div>
+      <button type="button" class="btn btn-primary" onclick="berechneBMI()">BMI Berechnen</button>
+    </form>
+    <div id="ergebnis" class="mt-3"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    function berechneBMI() {
+      var gewicht = parseFloat(document.getElementById("gewicht").value);
+      var groesse = parseFloat(document.getElementById("groesse").value);
+      var meinDiv = document.getElementById("ergebnis");
+      if (isNaN(gewicht) || isNaN(groesse) || gewicht <= 0 || groesse <= 0) {
+          meinDiv.innerHTML = "<p>Bitte geben Sie gültige Werte ein.</p>";
+          return;
+      }
+      
+      var bmi = gewicht / (groesse * groesse);
+      bmi = bmi.toFixed(2);
+
+      var ergebnis = "Ihr BMI beträgt: " + bmi + "<br>";
+      if (bmi < 18.5) {
+          ergebnis += "Sie haben Untergewicht.";
+          meinDiv.style.backgroundColor = "orange";
+      } else if (bmi >= 18.5 && bmi < 25) {
+          ergebnis += "Sie haben Normalgewicht.";
+          meinDiv.style.backgroundColor = "green";
+      } else if (bmi >= 25 && bmi < 30) {
+          ergebnis += "Sie haben Übergewicht.";
+          meinDiv.style.backgroundColor = "red";
+      } else {
+          ergebnis += "Sie haben Adipositas (Fettleibigkeit).";
+          meinDiv.style.backgroundColor = "red";
+      }
+
+      meinDiv.innerHTML = ergebnis;
+    }
+  </script>
+</body>
+</html>
